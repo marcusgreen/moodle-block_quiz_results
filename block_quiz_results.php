@@ -94,6 +94,7 @@ class block_quiz_results extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
+
         if (empty($this->instance)) {
             return $this->content;
         }
@@ -126,6 +127,7 @@ class block_quiz_results extends block_base {
             return $this->content;
         }
 
+
         // Get the grades for this quiz
         $grades = $DB->get_records('quiz_grades', array('quiz' => $quizid), 'grade, timemodified DESC');
 
@@ -133,6 +135,22 @@ class block_quiz_results extends block_base {
             // No grades, sorry
             // The block will hide itself in this case
             return $this->content;
+        }
+         // mavg
+        if($this->config->grouptoshow != null && $this->config->grouptoshow !=0){
+           
+           $groupmembers = $DB->get_records('groups_members', array('groupid' => $this->config->grouptoshow));
+          
+        $gradestoshow= array();   
+        foreach($groupmembers as $key=>$member){
+            foreach($grades as $grade){
+                
+                if($grade->userid==$member->userid){
+                    $gradestoshow[$grade->id]=$grade;
+                }
+            }
+           }
+            $grades=$gradestoshow;
         }
 
         $groupmode = NOGROUPS;

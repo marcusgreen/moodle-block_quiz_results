@@ -33,11 +33,27 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_quiz_results_edit_form extends block_edit_form {
+    
     protected function specific_definition($mform) {
-        global $DB;
+      global $DB;
+  
+//mavg
+      $groups=groups_get_all_groups($this->page->course->id, $userid=0, $groupingid=0, $fields='g.*');
+      $options = array();
+      $options[0]='';
+      foreach($groups as $group){
+          $options[$group->id]=$group->name;
+    }
+  
 
+
+ 
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
+         $mform->addElement('select', 'config_grouptoshow', 'config_grouptoshow', $options);
+        //$mform->setDefault('config_grouptoshow', 5);
+        $mform->setType('config_grouptoshow', PARAM_INT);
+        
 
         if (!$this->block->get_owning_quiz()) {
             $quizzes = $DB->get_records_menu('quiz', array('course' => $this->page->course->id), '', 'id, name');
@@ -78,4 +94,6 @@ class block_quiz_results_edit_form extends block_edit_form {
         $mform->addElement('select', 'config_gradeformat', get_string('config_grade_format', 'block_quiz_results'), $gradeeoptions);
         $mform->setDefault('config_gradeformat', B_QUIZRESULTS_GRADE_FORMAT_PCT);
     }
+
+    
 }
