@@ -32,6 +32,7 @@ $string['config_format_absolute'] = 'Absolute numbers';
 $string['config_format_fraction'] = 'Fractions';
 $string['config_format_percentage'] = 'Percentages';
 $string['config_grade_format'] = 'Display grades as:';
+$string['config_grouptoshow']='Group to show';
 $string['config_name_format'] = 'Privacy level for displayed results:';
 $string['config_names_anon'] = 'Anonymous results';
 $string['config_names_full'] = 'Display full names';
