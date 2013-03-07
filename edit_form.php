@@ -50,7 +50,7 @@ class block_quiz_results_edit_form extends block_edit_form {
  
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
-         $mform->addElement('select', 'config_grouptoshow', 'config_grouptoshow', $options);
+         $mform->addElement('select', 'config_grouptoshow', get_string('config_grouptoshow','block_quiz_results'), $options);
         //$mform->setDefault('config_grouptoshow', 5);
         $mform->setType('config_grouptoshow', PARAM_INT);
         
